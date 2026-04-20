@@ -5,6 +5,6 @@ metadata:
   lables:
     purpose: demo
 spec:
-   containers:
+  containers:
      - name: nginx
        image: nginx
