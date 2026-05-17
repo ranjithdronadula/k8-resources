@@ -4,7 +4,7 @@ metadata:
   name: ebs-static-pv
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteOnce   # Only one node can mount this
   capacity:
     storage: 20Gi
   csi:
@@ -20,7 +20,7 @@ metadata:
   name: ebs-static-pvc
 spec:
   storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
-  volumeName: ebs-static-pv
+  volumeName: ebs-static-pv   # Volume name must be taken by Pv metadat name 
   accessModes:
     - ReadWriteOnce
   resources:
