@@ -1,3 +1,4 @@
+# PV
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -13,7 +14,7 @@ spec:
     volumeHandle: vol-0ccceed2df028a46b
 
 ---
-
+# PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -28,7 +29,7 @@ spec:
       storage: 15Gi
 
 ---
-
+# Nginx pod
 apiVersion: v1
 kind: Pod
 metadata:
@@ -49,3 +50,31 @@ spec:
   - name: persistent-storage
     persistentVolumeClaim:
       claimName: ebs-static-pvc
+
+---
+# service-loadbalancer
+apiVersion: v1
+kind: Service
+metadata: 
+  name: ebs-static-svc
+  labels:
+    purpose: ebs-static-demo
+    project: roboshop
+spec:
+  type: LoadBalancer
+  selector:
+    purpose: ebs-static-demo
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 80 # service port
+      targetPort: 80 # container port
+
+
+  # first create volume in aws
+  # attach to EBSpolicy  one node
+  # install drivers
+  # create pv and pvc
+  # create pod and one servie either loadbalancer
+  # check in browser
+  # delete volumes dont forget for practice purpose
